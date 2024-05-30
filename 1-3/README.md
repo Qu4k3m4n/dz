@@ -1,7 +1,7 @@
-https://hub.docker.com/repository/docker/qu4k3m4n/custom-nginx/general
+- https://hub.docker.com/repository/docker/qu4k3m4n/custom-nginx/general
 
 
-docker run -d --name "qu4k3m4n-custom-nginx-t2" -p 127.0.0.1:8080:80 qu4k3m4n/custom-nginx:1.0.0
+- docker run -d --name "qu4k3m4n-custom-nginx-t2" -p 127.0.0.1:8080:80 qu4k3m4n/custom-nginx:1.0.0
 3f0bf1aac39217e843544cb0639c662402d996949741c7de71782db330a0a1b1
 docker rename "qu4k3m4n-custom-nginx-t2" custom-nginx-t2
 Get-Date -Format "dd-MM-yyyy HH:mm:ss.fffffff K"
@@ -9,7 +9,7 @@ Start-Sleep -Milliseconds 150
 docker ps
 netstat -ano | findstr ":8080"
 docker logs custom-nginx-t2 -n1
-docker exec -it custom-nginx-t2 base64 /usr/share/nginx/html/index.html #Переделан под винду
+docker exec -it custom-nginx-t2 base64 /usr/share/nginx/html/index.html **#Переделан под винду**
 What's next?
   Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug custom-nginx-t2
   Learn more at https://docs.docker.com/go/debug-cli/
