@@ -1,18 +1,19 @@
 variable "vm_web_default_zone" {
+  description = "Зона для ВМ web"
   type        = string
   default     = "ru-central1-a"
-  description = "Зона для ВМ web"
 }
+
 variable "vm_web_default_cidr" {
+  description = "Сидр для ВМ web"
   type        = list(string)
   default     = ["10.0.1.0/24"]
-  description = "Сидр для ВМ web"
 }
 
 variable "vm_web_vpc_name" {
+  description = "Имя подсети для ВМ web"
   type        = string
   default     = "web"
-  description = "Имя подсети для ВМ web"
 }
 
 variable "vm_web_image_version" {
@@ -51,21 +52,11 @@ variable "vm_web_core_fraction" {
   default = "5"
 }
 
-# variable "vm_web_image_id" {
-#   type = string
-#   default = data.yandex_compute_image.ubuntu.image_id
-# }
-
 variable "vm_web_preemptible" {
   description = "Прерываемая машина для ВМ web"
   type = bool
   default = true
 }
-
-# variable "vm_web_subnet_id" {
-#   type = string
-#   default = yandex_vpc_subnet.develop.id
-# }
 
 variable "vm_web_nat" {
   description = "Публичный IP для ВМ web"
@@ -129,21 +120,12 @@ variable "vm_db_core_fraction" {
   default = "20"
 }
 
-# variable "vm_db_image_id" {
-#   type = string
-#   default = data.yandex_compute_image.ubuntu.image_id
-# }
-
 variable "vm_db_preemptible" {
   description = "Прерываемая машина для ВМ db"
   type = bool
   default = true
 }
 
-# variable "vm_db_subnet_id" {
-#   type = string
-#   default = yandex_vpc_subnet.develop.id
-# }
 
 variable "vm_db_nat" {
   description = "Публичный IP для ВМ db"
