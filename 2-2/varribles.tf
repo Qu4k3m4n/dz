@@ -23,10 +23,14 @@ variable "vm_dev_vpc_name" {
   type        = string
   default = "dev"
 }
-###ssh vars
 
-variable "vms_ssh_root_key" {
-  type        = string
-  default     = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHMx6AhDUsS7LtY5mxNxMHUwEwWodwUIz7jumDOTrq6p quakeman@WIN-HKA0F9TV73I"
-  description = "ssh-keygen -t ed25519"
+variable "project_name" {
+  type = string
+  default = "netology"
 }
+
+variable "environment" {
+  type = string
+  default = "dev"
+}
+
