@@ -1,7 +1,7 @@
 resource "yandex_compute_disk" "storage_disks" {
-  count = 3
+  count = var.disk_resources.disk.count_disk
   name  = "storage-disk-${count.index + 1}"
-  size  = 1
+  size  = var.disk_resources.disk.size
   # type = network-hdd по умолчанию
   zone      = var.default_zone
   folder_id = var.folder_id
@@ -9,12 +9,12 @@ resource "yandex_compute_disk" "storage_disks" {
 
 resource "yandex_compute_instance" "storage" {
   name                      = "storage"
-  allow_stopping_for_update = true
-  platform_id               = "standard-v1"
+  allow_stopping_for_update = var.stopping_for_update
+  platform_id               = var.vm_platform_id
   resources {
-    cores         = 2
-    memory        = 1
-    core_fraction = 5
+    cores         = var.disk_resources.disk.cores
+    memory        = var.disk_resources.disk.memory
+    core_fraction = var.disk_resources.disk.core_fraction
   }
 
   boot_disk {
@@ -25,12 +25,12 @@ resource "yandex_compute_instance" "storage" {
 
   network_interface {
     subnet_id          = yandex_vpc_subnet.develop.id
-    nat                = true
+    nat                = var.nat
     security_group_ids = [yandex_vpc_security_group.example.id]
   }
 
   scheduling_policy {
-    preemptible = true
+    preemptible = var.preemptible
   }
 
   metadata = {

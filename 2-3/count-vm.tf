@@ -1,14 +1,14 @@
 resource "yandex_compute_instance" "web_server" {
   depends_on                = [resource.yandex_compute_instance.db_server]
-  count                     = 2
+  count                     = var.web_resources.web.count
   name                      = "web-${count.index + 1}"
-  allow_stopping_for_update = true
-  platform_id               = "standard-v1"
+  allow_stopping_for_update = var.stopping_for_update
+  platform_id               = var.vm_platform_id
 
   resources {
-    cores         = 2
-    memory        = 1
-    core_fraction = 5
+    cores         = var.web_resources.web.cores
+    memory        = var.web_resources.web.memory
+    core_fraction = var.web_resources.web.core_fraction
   }
 
   boot_disk {
@@ -19,12 +19,12 @@ resource "yandex_compute_instance" "web_server" {
 
   network_interface {
     subnet_id          = yandex_vpc_subnet.develop.id
-    nat                = true
+    nat                = var.nat
     security_group_ids = [yandex_vpc_security_group.example.id]
   }
 
   scheduling_policy {
-    preemptible = true
+    preemptible = var.preemptible
   }
 
   metadata = {

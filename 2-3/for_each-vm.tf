@@ -1,35 +1,8 @@
-variable "each_vm" {
-  type = list(object({
-    vm_name = string
-    cpu     = number
-    ram     = number
-    core    = number #Добавил, чтобы не создавались дорогие с исп. цпу 100%
-    disk    = number
-  }))
-
-  default = [
-    {
-      vm_name = "db-main"
-      cpu     = 4
-      ram     = 4
-      core    = 20
-      disk    = 25
-    },
-    {
-      vm_name = "db-replica"
-      cpu     = 2
-      ram     = 2
-      core    = 5
-      disk    = 5
-    },
-  ]
-}
-
 resource "yandex_compute_instance" "db_server" {
   for_each                  = { for vm in var.each_vm : vm.vm_name => vm }
   name                      = each.value.vm_name
-  allow_stopping_for_update = true
-  platform_id               = "standard-v1"
+  allow_stopping_for_update = var.stopping_for_update
+  platform_id = var.vm_platform_id
   resources {
     cores         = each.value.cpu
     memory        = each.value.ram
@@ -44,12 +17,12 @@ resource "yandex_compute_instance" "db_server" {
   }
 
   scheduling_policy {
-    preemptible = true
+    preemptible = var.preemptible
   }
 
   network_interface {
     subnet_id = yandex_vpc_subnet.develop.id
-    nat       = true
+    nat       = var.nat
   }
 
   metadata = {
