@@ -5,7 +5,7 @@ data "yandex_compute_image" "ubuntu" {
 }
 
 variable "nat" {
-  type = bool
+  type    = bool
   default = "true"
 }
 
@@ -21,8 +21,8 @@ variable "stopping_for_update" {
 
 variable "vm_platform_id" {
   description = "Платформа виртуализации(процессор)"
-  type = string
-  default = "standard-v1"
+  type        = string
+  default     = "standard-v1"
 }
 
 
